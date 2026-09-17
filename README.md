@@ -266,35 +266,3 @@ The restore is considered successful when the restored booking/event counts matc
 
 The workflow uploads plan output as artifacts. It does **not** apply infrastructure.
 
-## Before pushing
-
-```bash
-terraform fmt -recursive
-git status
-git add .
-git commit -m "feat: complete DevOps assessment"
-git push
-```
-
-## Suggested GitHub repository description
-
-> DevOps assessment demonstrating Terraform AWS architecture, ECS/Fargate + private RDS design, PostgreSQL backup/restore, query optimization, Docker Compose, and CI validation.
-
-## What to explain in the interview
-
-Be ready to explain:
-
-1. Why ALB is public but RDS is private.
-2. Why RDS allows traffic from ECS SG instead of an IP range.
-3. Why ECS tasks are placed in private subnets.
-4. How ALB reaches ECS tasks.
-5. Why the database backup uses `pg_dump -Fc`.
-6. How restore creates a separate database.
-7. Why the composite index starts with `city, created_at`.
-8. Why dev/prod have different sizing and deletion protection.
-9. Why production RDS should use backups, Multi-AZ, encryption, monitoring and controlled access.
-10. Why `terraform plan -refresh=false` is useful for an assignment that does not require live AWS access.
-
-## Important production note
-
-This repository is an assessment/demo, not a production deployment. In a real AWS environment, secrets should come from Secrets Manager/SSM rather than plain Terraform variables, state should use a secured S3 backend with locking, RDS should use encryption and monitoring, and ECS should use a real application image with health checks.
